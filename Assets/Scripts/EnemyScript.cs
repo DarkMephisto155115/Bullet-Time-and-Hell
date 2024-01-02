@@ -11,9 +11,13 @@ public class EnemyScript : MonoBehaviour
     public Transform weaponHolder;
     public NavMeshAgent enemy;
     public Transform player;
+    AudioSource m_dead_sfx;
+    KillCounter killCounterScript;
 
     void Start()
     {
+        m_dead_sfx = GetComponent<AudioSource>();
+        killCounterScript = GameObject.Find("KCO").GetComponent<KillCounter>();
         anim = GetComponent<Animator>();
         StartCoroutine(RandomAnimation());
 
@@ -53,6 +57,11 @@ public class EnemyScript : MonoBehaviour
             bp.rb.interpolation = RigidbodyInterpolation.Interpolate;
         }
         dead = true;
+        if (dead)
+        {
+            m_dead_sfx.Play();
+        }
+        
 
         if (weaponHolder.GetComponentInChildren<WeaponScript>() != null)
         {
@@ -60,9 +69,8 @@ public class EnemyScript : MonoBehaviour
             if (w.bulletAmount > 0)
             {
                 w.Release();
+                killCounterScript.addKill();
             }
-            
-
         }
     }
 

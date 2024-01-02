@@ -59,8 +59,8 @@ public class SuperHotScript : MonoBehaviour
         {
             if (this.shooting)
             {
-                StopCoroutine(ActionE(.03f));
-                StartCoroutine(ActionE(.03f));
+                StopCoroutine(ActionE(.2f));
+                StartCoroutine(ActionE(.2f));
                 if (weapon != null)
                     weapon.Shoot(SpawnPos(), Camera.main.transform.rotation, false);
                 this.shooting=false;

@@ -21,12 +21,15 @@ public class WeaponScript : MonoBehaviour
     public float reloadTime = .3f;
     public int bulletAmount = 6;
 
+    AudioSource m_shooting_sound;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
         renderer = GetComponent<Renderer>();
+        m_shooting_sound = GetComponent<AudioSource>();
 
         ChangeSettings();
     }
@@ -55,6 +58,7 @@ public class WeaponScript : MonoBehaviour
         GameObject bullet = Instantiate(SuperHotScript.instance.bulletPrefab, pos, rot);
 
         if (GetComponentInChildren<ParticleSystem>() != null)
+            m_shooting_sound.Play();
             GetComponentInChildren<ParticleSystem>().Play();
 
         if(SuperHotScript.instance.weapon == this)
